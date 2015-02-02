@@ -283,7 +283,7 @@ class HypoLocRupture(unittest.TestCase):
         self.src_msr = msr.BaseMSR
         self.src_tom = tom.PoissonTOM(50)
         self.sarea = WC1994()
-        self.id = "test"
+        self._id = "test"
         self.name = "test"
         self.tectonic = "Active Shallow Crust"
         self.upper_seismogenic_depth = 0.
@@ -298,9 +298,9 @@ class HypoLocRupture(unittest.TestCase):
 
         self.fault_trace = Line(self.fault_trace_nodes)
 
-    def hypoloc_vertical_rupture_test(self):
+    def test_hypoloc_vertical_rupture(self):
         hypo_list = numpy.array([[0.25, 0.25, 0.4], [0.75, 0.75, 0.6]])
-        src = SimpleFaultSource(self.id, self.name, self.tectonic,
+        src = SimpleFaultSource(self._id, self.name, self.tectonic,
                                 self.src_mfd, self.mesh_spacing,
                                 self.sarea, 1., self.src_tom,
                                 self.upper_seismogenic_depth,
@@ -438,11 +438,11 @@ class HypoLocRupture(unittest.TestCase):
             self.assertAlmostEqual(rup.hypocenter.depth, dep[i], delta=0.01)
             self.assertAlmostEqual(rup.occurrence_rate, rate[i], delta=0.01)
 
-    def hypoloc_dip_rupture_test(self):
+    def test_hypoloc_dip_rupture(self):
         dip = 30.
         hypo_list = numpy.array([[0.25, 0.25, 0.4], [0.75, 0.75, 0.6]])
         self.mesh_spacing = 5.
-        src = SimpleFaultSource(self.id, self.name, self.tectonic,
+        src = SimpleFaultSource(self._id, self.name, self.tectonic,
                                 self.src_mfd, self.mesh_spacing, self.sarea,
                                 1., self.src_tom, self.upper_seismogenic_depth,
                                 self.lower_seismogenic_depth,
@@ -579,13 +579,13 @@ class HypoLocRupture(unittest.TestCase):
             self.assertAlmostEqual(rup.hypocenter.depth, dep[i], delta=0.1)
             self.assertAlmostEqual(rup.occurrence_rate, rate[i], delta=0.01)
 
-    def hypoloc_multisegment_rupture_test(self):
+    def test_hypoloc_multisegment_rupture(self):
         hypo_list = numpy.array([[0.25, 0.25, 0.4], [0.75, 0.75, 0.6]])
         self.mesh_spacing = 5.
         self.fault_trace_nodes = [
             self.fault_trace_start, Point(0.3, 0.3), self.fault_trace_end]
         self.fault_trace = Line(self.fault_trace_nodes)
-        src = SimpleFaultSource(self.id, self.name, self.tectonic,
+        src = SimpleFaultSource(self._id, self.name, self.tectonic,
                                 self.src_mfd, self.mesh_spacing,
                                 self.sarea, 1., self.src_tom,
                                 self.upper_seismogenic_depth,
